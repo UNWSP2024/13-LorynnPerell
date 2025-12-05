@@ -2,25 +2,25 @@ import sqlite3
 
 
 def main():
-    # Connect to the database.
+
     conn = sqlite3.connect('cities.db')
 
-    # Get a database cursor.
+
     cur = conn.cursor()
 
-    # Add the Cities table.
+
     add_cities_table(cur)
 
-    # Add rows to the Cities table.
+
     add_cities(cur)
 
-    # Commit the changes.
+
     conn.commit()
 
-    # Display the cities (your original function)
+
     display_cities(cur)
 
-    # --- ADDED REQUIRED OUTPUTS BELOW ---
+
     print("\n--- Cities Sorted By Population (Ascending) ---")
     show_sorted_population_asc(cur)
 
@@ -42,13 +42,8 @@ def main():
     print("\n--- City With Lowest Population ---")
     show_lowest_population(cur)
 
-    # Close the connection.
+
     conn.close()
-
-
-# -----------------------------------------------------------------------
-# ORIGINAL FUNCTIONS
-# -----------------------------------------------------------------------
 
 def add_cities_table(cur):
     cur.execute('DROP TABLE IF EXISTS Cities')
@@ -91,11 +86,6 @@ def display_cities(cur):
     for row in results:
         print(f'{row[0]:<3}{row[1]:20}{row[2]:,.0f}')
 
-
-# -----------------------------------------------------------------------
-# ADDED FUNCTIONS FOR THE 7 REQUIRED TASKS
-# -----------------------------------------------------------------------
-
 def show_sorted_population_asc(cur):
     cur.execute("SELECT CityName, Population FROM Cities ORDER BY Population ASC")
     for city, pop in cur.fetchall():
@@ -137,7 +127,5 @@ def show_lowest_population(cur):
     city = cur.fetchone()
     print(f"{city[0]} - {city[1]:,.0f}")
 
-
-# Run the program
 if __name__ == '__main__':
     main()
